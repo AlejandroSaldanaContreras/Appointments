@@ -1,8 +1,10 @@
 import { View, FlatList, StyleSheet } from "react-native";
 import ProfessionalItem from './ProfessionalItem';
+import { useNavigation } from '@react-navigation/native';
 
 function ProfessionalList({ items }){
-    
+    const navigation = useNavigation();
+
     function renderProfItem(itemData){
         const item = itemData.item;
 
@@ -15,8 +17,13 @@ function ProfessionalList({ items }){
             rating: item.rating,
             schedule: item.schedule,
         }
+
+        function pressHandler(){
+            navigation.navigate("ProfessionalDetail", {professionalId: profItemProps.id});
+        }
+
         return(
-            <ProfessionalItem {...profItemProps}></ProfessionalItem>
+            <ProfessionalItem {...profItemProps} onPress={pressHandler}></ProfessionalItem>
         );
     }
 

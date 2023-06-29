@@ -1,10 +1,11 @@
 import { View, Text, Pressable, Image, StyleSheet, Platform } from 'react-native';
 
-function ProfessionalItem({ image, name, sector, rating, address, schedule }){
+function ProfessionalItem({ image, name, sector, rating, address, schedule, onPress }){
     return(
         <View style={styles.mealItem}>
             <Pressable android_ripple={{color: '#ccc'}} 
                     style={({pressed}) => pressed ? styles.buttonPressed : null}
+                    onPress={onPress}
                     >
                 <View style={styles.innerContainer}>
                     <View>
