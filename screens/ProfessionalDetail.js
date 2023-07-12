@@ -1,13 +1,14 @@
 import { StyleSheet, Text, ScrollView, Image, View } from 'react-native';
-import { PROFESSIONALS } from '../data/dummy-data'
-import { useLayoutEffect } from 'react';
+import { ProfessionalsContext } from '../store/professionals-context';
+import { useContext, useLayoutEffect } from 'react';
 import ProfessionalInfo from '../components/ProfessionalInfo';
 import Button from '../ui/Button';
 
 
 function ProfessionalDetail({ route, navigation }){
+    const professionalsCtx = useContext(ProfessionalsContext);
     const profId = route.params.professionalId;
-    const selectedProf = PROFESSIONALS.find((professional) => professional.id === profId);
+    const selectedProf = professionalsCtx.professionals.find((professional) => professional.id === profId);
 
 
     useLayoutEffect(() => {

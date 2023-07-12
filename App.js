@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,6 +9,8 @@ import ProfessionalDetail from './screens/ProfessionalDetail';
 import ProfessionalOverview from './screens/ProfessionalOverview';
 import { Ionicons } from '@expo/vector-icons';
 import { GlobalStyles } from './constants/styles';
+import InstitutionsContextProvider from './store/institutions-context';
+import ProfessionalsContextProvider from './store/professionals-context';
 
 
 const Tab = createBottomTabNavigator();
@@ -42,17 +44,21 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{
-                          headerStyle: {backgroundColor: GlobalStyles.colors.gray},
-                          headerTintColor: GlobalStyles.colors.cream}}
-        >
-          <Stack.Screen name='BottomTabs' component={BottomNavigator}
-                        options={{headerShown: false}}/>
-          <Stack.Screen name='ProfessionalOverview' component={ProfessionalOverview}/>
-          <Stack.Screen name='ProfessionalDetail' component={ProfessionalDetail}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+      <InstitutionsContextProvider>
+        <ProfessionalsContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{
+                              headerStyle: {backgroundColor: GlobalStyles.colors.gray},
+                              headerTintColor: GlobalStyles.colors.cream}}
+            >
+              <Stack.Screen name='BottomTabs' component={BottomNavigator}
+                            options={{headerShown: false}}/>
+              <Stack.Screen name='ProfessionalOverview' component={ProfessionalOverview}/>
+              <Stack.Screen name='ProfessionalDetail' component={ProfessionalDetail}/>
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ProfessionalsContextProvider>
+      </InstitutionsContextProvider>
     </>
   );
 }
